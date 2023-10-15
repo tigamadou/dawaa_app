@@ -26,6 +26,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # # Copy Laravel application files from the 'dawaa' folder into the container
 # COPY dawaa/.env.example .env
+COPY php.ini /usr/local/etc/php/conf.d/custom-php.ini
 
 # # Install Laravel dependencies using Composer
 # RUN composer install

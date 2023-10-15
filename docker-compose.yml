@@ -39,6 +39,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./dawaa:/var/www/dawaa
+      - ./php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
     ports:
       - "9000:9000"
     working_dir: /var/www/dawaa
@@ -55,6 +56,8 @@ services:
       - dawaa_db
     environment:
       PMA_HOST: dawaa_db
+    volumes:
+    - ./phpmyadmin/phpmyadmin.ini:/usr/local/etc/php/conf.d/phpmyadmin.ini
     networks:
       - dawaa_network
 
