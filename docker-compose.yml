@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+
+  # Web Server Service
+  dawaa_nginx:
+    image: nginx:alpine
+    container_name: dawaa_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./dawaa:/var/www/dawaa
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - dawaa_app
+      - dawaa_db
+    networks:
+      - dawaa_network
+
+  # Database Service
+  dawaa_db:
+    image: mysql
+    container_name: dawaa_db
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: dawaa
+      MYSQL_ROOT_PASSWORD: 'root'
+    networks:
+      - dawaa_network
+
+  # Application Service
+  dawaa_app:
+    container_name: dawaa_app
+    build: 
+      context: ./php
+      dockerfile: Dockerfile
+    volumes:
+      - ./dawaa:/var/www/dawaa
+    ports:
+      - "9000:9000"
+    working_dir: /var/www/dawaa
+    networks:
+      - dawaa_network
+
+  # phpMyAdmin Service
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - "3400:80"
+    depends_on:
+      - dawaa_db
+    environment:
+      PMA_HOST: dawaa_db
+    networks:
+      - dawaa_network
+
+networks:
+  dawaa_network:
+    driver: bridge
