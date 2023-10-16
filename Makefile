@@ -10,8 +10,11 @@ restart-db:
 	docker-compose down && docker-compose up -d --build
 restart-d:
 	docker-compose down && docker-compose up -d
-down:
+stop:
 	docker-compose down
+update:
+	cd dawaa ; \
+	git pull
 volume:
 	docker volume prune
 	
