@@ -13,6 +13,7 @@ restart-d:
 stop:
 	docker-compose down
 update:
+	git pull ; \
 	cd dawaa ; \
 	git pull
 volume:
