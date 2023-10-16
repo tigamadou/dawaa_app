@@ -41,7 +41,7 @@ services:
       - ./dawaa:/var/www/dawaa
       - ./php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
     ports:
-      - "9000:9000"
+      - "9001:9001"
     working_dir: /var/www/dawaa
     networks:
       - dawaa_network

@@ -1,10 +1,10 @@
 init:
 	chmod +x init.sh && ./init.sh
 start:
-	docker-compose up
+	docker-compose up -d && cd dawaa && php artisan serve
 start-d:
 	docker-compose up -d
-start-db:
+startb:
 	docker-compose up -d --build
 restart-db:
 	docker-compose down && docker-compose up -d --build
@@ -41,6 +41,4 @@ install:
 	docker exec -it dawaa_app composer install ; \
 	docker exec -it dawaa_app cp .env.example .env ; \
 	docker exec -it dawaa_app php artisan key:generate ; \
-	docker-compose exec "$(CONTAINER_NAME)" mysql -u"$(DB_USER)" -p"$(DB_PASSWORD)" "$(DB_NAME)" < "$(SQL_FILE)" ; \
-	sudo chown -R www-data.www-data storage ; \
-	sudo chown -R www-data.www-data bootstrap/cache
+	docker-compose exec -T "$(CONTAINER_NAME)" mysql -u"$(DB_USER)" -p"$(DB_PASSWORD)" "$(DB_NAME)" < "$(SQL_FILE)"
