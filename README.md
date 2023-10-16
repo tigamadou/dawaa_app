@@ -11,7 +11,12 @@ make init
 
 ```
 # Run
-make start-b
+make start-db
+```
+
+```
+# Run
+make install
 ```
 
 > Find react development server on address `dawaa.local``

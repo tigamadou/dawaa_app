@@ -28,10 +28,19 @@ pull-all:
 .PHONE: clean_branches
 clean_branches:
 	git branch | grep -v "development" | grep -v "main" | xargs git branch -D
+
+# Define the container and database information
+CONTAINER_NAME = dawaa_db
+DB_USER = root
+DB_PASSWORD = root
+DB_NAME = dawaa
+
+# Path to the SQL file to import
+SQL_FILE = dawadb.sql
 install: 
 	docker exec -it dawaa_app composer install ; \
 	docker exec -it dawaa_app cp .env.example .env ; \
 	docker exec -it dawaa_app php artisan key:generate ; \
-	docker exec -it dawaa_app php artisan migrate ; 
+	docker-compose exec "$(CONTAINER_NAME)" mysql -u"$(DB_USER)" -p"$(DB_PASSWORD)" "$(DB_NAME)" < "$(SQL_FILE)" ; \
 	sudo chown -R www-data.www-data storage ; \
 	sudo chown -R www-data.www-data bootstrap/cache
