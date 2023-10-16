@@ -1,13 +1,11 @@
 # dawaa app
 
-> ### Step to launch this projects
+> ### Step to install this projects
 
 ```shell
 # Run
 make init
 ```
-
-### Launch the project
 
 ```
 # Run
@@ -18,7 +16,7 @@ make startb
 # Run
 make install
 ```
-
+### Launch the project
 ```
 # Run
 make start
